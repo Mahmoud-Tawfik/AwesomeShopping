@@ -27,10 +27,11 @@ import butterknife.ButterKnife;
 
 public class FavoritesTabFragment extends Fragment {
     private static final String CATEGORY_KEY = "Category_key";
-    FirebaseRecyclerAdapter adapter;
-    String mCategoryKey;
-    ArrayList<CatalogItem> mFavorites  = new ArrayList<>();
-    Query query;
+    private static final String RECYCLER_LAYOUT = "recycler_layout";
+    private FirebaseRecyclerAdapter adapter;
+    private String mCategoryKey;
+    private ArrayList<CatalogItem> mFavorites  = new ArrayList<>();
+    private Query query;
 
     private ValueEventListener favoritesListener;
 
@@ -103,13 +104,16 @@ public class FavoritesTabFragment extends Fragment {
             @NonNull
             @Override
             public FavoriteItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                FavoriteItemHolder favoriteItemHolder = new FavoriteItemHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false));
-                return favoriteItemHolder;
+                return new FavoriteItemHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.favorite_list_item, parent, false));
             }
 
             @Override
             public void onDataChanged() {
                 mNoItemsText.setVisibility(adapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+                if (savedInstanceState != null && savedInstanceState.getParcelable(RECYCLER_LAYOUT) != null){
+                    mCatalogItemsRV.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(RECYCLER_LAYOUT));
+                    savedInstanceState.putParcelable(RECYCLER_LAYOUT, null);
+                }
             }
         };
         mCatalogItemsRV.setAdapter(adapter);
@@ -132,5 +136,6 @@ public class FavoritesTabFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(CATEGORY_KEY, mCategoryKey);
+        outState.putParcelable(RECYCLER_LAYOUT, mCatalogItemsRV.getLayoutManager().onSaveInstanceState());
     }
 }

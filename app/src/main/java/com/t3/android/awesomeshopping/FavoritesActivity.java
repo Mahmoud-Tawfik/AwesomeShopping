@@ -95,11 +95,6 @@ public class FavoritesActivity extends AppCompatActivity {
         mAdView.loadAd(adRequest);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

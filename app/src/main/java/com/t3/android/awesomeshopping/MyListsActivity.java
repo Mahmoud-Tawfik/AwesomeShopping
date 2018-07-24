@@ -43,14 +43,15 @@ import butterknife.ButterKnife;
 
 public class MyListsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MyListsActivity";
+    private static final String RECYCLER_LAYOUT = "recycler_layout";
 
     @BindView(R.id.adView) AdView mAdView;
-    @BindView(R.id.rv_lists) RecyclerView mlistsRV;
+    @BindView(R.id.rv_lists) RecyclerView mListsRV;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.nav_view) NavigationView navigationView;
 
-    FirebaseRecyclerAdapter adapter;
+    private FirebaseRecyclerAdapter adapter;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, MyListsActivity.class);
@@ -65,20 +66,6 @@ public class MyListsActivity extends AppCompatActivity implements NavigationView
 
         setSupportActionBar(toolbar);
 
-        updateUI();
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(this);
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
-    private void updateUI(){
         FirebaseUtils.currentUser = new User(FirebaseAuth.getInstance().getCurrentUser());
 
         TextView userName = navigationView.getHeaderView(0).findViewById(R.id.username);
@@ -86,7 +73,6 @@ public class MyListsActivity extends AppCompatActivity implements NavigationView
         IImageLoader imageLoader = new GlideLoader();
         imageLoader.loadImage(avatarView, FirebaseUtils.currentUser.getLargeThumbnailUrl(), FirebaseUtils.currentUser.getName());
         userName.setText(FirebaseUtils.currentUser.getName());
-
 
         Query query = FirebaseUtils.listsRef().orderByChild("participants/"+FirebaseUtils.currentUser.getUid()).equalTo(true);
         FirebaseRecyclerOptions<List> options = new FirebaseRecyclerOptions.Builder<List>().setQuery(query, List.class).build();
@@ -107,10 +93,24 @@ public class MyListsActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onDataChanged() {
                 findViewById(R.id.no_lists_text).setVisibility(adapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+                if (savedInstanceState != null && savedInstanceState.getParcelable(RECYCLER_LAYOUT) != null){
+                    mListsRV.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(RECYCLER_LAYOUT));
+                    savedInstanceState.putParcelable(RECYCLER_LAYOUT, null);
+                }
             }
         };
 
-        mlistsRV.setAdapter(adapter);
+        mListsRV.setAdapter(adapter);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -193,5 +193,11 @@ public class MyListsActivity extends AppCompatActivity implements NavigationView
                     newListRef.setValue(newList)
                             .addOnSuccessListener(aVoid -> ListDetailsActivity.launch(MyListsActivity.this, newList, true));
                 }).show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECYCLER_LAYOUT, mListsRV.getLayoutManager().onSaveInstanceState());
     }
 }

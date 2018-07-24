@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class InviteActivity extends AppCompatActivity {
     private static String mListKey;
-    Bitmap bitmap;
+    private Bitmap bitmap;
 
     @BindView(R.id.adView) AdView mAdView;
 

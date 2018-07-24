@@ -43,9 +43,10 @@ import butterknife.ButterKnife;
 
 public class ListDetailsActivity extends AppCompatActivity {
     private static final String SELECTED_TAB = "selected_tab";
+    private static final String RECYCLER_LAYOUT = "recycler_layout";
 
-    Boolean isOwner = false;
-    static Boolean mEditMode = false;
+    private Boolean isOwner = false;
+    private static Boolean mEditMode = false;
     private User mCurrentUser;
 
     private static List mList;
@@ -110,6 +111,10 @@ public class ListDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChanged() {
                 findViewById(R.id.no_list_items_text).setVisibility(normalModeAdapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+                if (savedInstanceState != null && savedInstanceState.getParcelable(RECYCLER_LAYOUT) != null){
+                    mItemsNormal.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(RECYCLER_LAYOUT));
+                    savedInstanceState.putParcelable(RECYCLER_LAYOUT, null);
+                }
             }
         };
 
@@ -218,7 +223,7 @@ public class ListDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateEditMode() {
+    private void updateEditMode() {
         mFAB.setImageDrawable(mEditMode ? getResources().getDrawable(R.drawable.ic_done) : getResources().getDrawable(R.drawable.ic_edit));
         mFAB.setContentDescription(mEditMode ? getString(R.string.content_description_end_edit_mode) : getString(R.string.content_description_start_edit_mode));
         mNormalLayout.setVisibility(mEditMode ? View.GONE : View.VISIBLE);
@@ -234,5 +239,6 @@ public class ListDetailsActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_TAB, mTabLayout.getSelectedTabPosition());
+        outState.putParcelable(RECYCLER_LAYOUT, mItemsNormal.getLayoutManager().onSaveInstanceState());
     }
 }

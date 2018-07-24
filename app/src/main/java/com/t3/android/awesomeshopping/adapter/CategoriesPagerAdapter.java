@@ -12,9 +12,9 @@ import com.t3.android.awesomeshopping.Model.List;
 import java.util.ArrayList;
 
 public class CategoriesPagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
-    ArrayList<CatalogCategory> mCatalogCategories;
-    List mList;
+    private int mNumOfTabs;
+    private ArrayList<CatalogCategory> mCatalogCategories;
+    private List mList;
 
     public CategoriesPagerAdapter(FragmentManager fm, int NumOfTabs, ArrayList<CatalogCategory> category, List list) {
         super(fm);

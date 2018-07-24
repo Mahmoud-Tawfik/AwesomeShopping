@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SpecialsActivity extends AppCompatActivity {
+    private static final String RECYCLER_LAYOUT = "recycler_layout";
 
     private FirebaseRecyclerAdapter adapter;
 
@@ -66,6 +67,10 @@ public class SpecialsActivity extends AppCompatActivity {
             @Override
             public void onDataChanged() {
                 findViewById(R.id.no_items_text).setVisibility(adapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+                if (savedInstanceState != null && savedInstanceState.getParcelable(RECYCLER_LAYOUT) != null){
+                    mItemsRecycler.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(RECYCLER_LAYOUT));
+                    savedInstanceState.putParcelable(RECYCLER_LAYOUT, null);
+                }
             }
         };
 
@@ -112,5 +117,11 @@ public class SpecialsActivity extends AppCompatActivity {
                     CatalogItem newItem = new CatalogItem(itemName, null, newItemRef.getKey());
                     newItemRef.setValue(newItem);
                 }).show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECYCLER_LAYOUT, mItemsRecycler.getLayoutManager().onSaveInstanceState());
     }
 }

@@ -28,11 +28,12 @@ import butterknife.ButterKnife;
 public class CatalogTabFragment extends Fragment {
     private static final String LIST_KEY = "list_key";
     private static final String CATEGORY_KEY = "Category_key";
-    FirebaseRecyclerAdapter adapter;
-    String mCategoryKey;
-    List mList;
-    String listKey;
-    Query query;
+    private static final String RECYCLER_LAYOUT = "recycler_layout";
+    private FirebaseRecyclerAdapter adapter;
+    private String mCategoryKey;
+    private List mList;
+    private String listKey;
+    private Query query;
 
     private ValueEventListener listListener;
 
@@ -123,6 +124,10 @@ public class CatalogTabFragment extends Fragment {
             @Override
             public void onDataChanged() {
                 mNoItemsText.setVisibility(adapter.getItemCount() > 0 ? View.GONE : View.VISIBLE);
+                if (savedInstanceState != null && savedInstanceState.getParcelable(RECYCLER_LAYOUT) != null){
+                    mCatalogItemsRV.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(RECYCLER_LAYOUT));
+                    savedInstanceState.putParcelable(RECYCLER_LAYOUT, null);
+                }
             }
         };
         mCatalogItemsRV.setAdapter(adapter);
@@ -146,5 +151,6 @@ public class CatalogTabFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putString(CATEGORY_KEY, mCategoryKey);
         outState.putString(LIST_KEY, listKey);
+        outState.putParcelable(RECYCLER_LAYOUT, mCatalogItemsRV.getLayoutManager().onSaveInstanceState());
     }
 }

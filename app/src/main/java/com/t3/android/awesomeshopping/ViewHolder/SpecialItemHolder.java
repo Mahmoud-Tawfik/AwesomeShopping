@@ -24,9 +24,9 @@ public class SpecialItemHolder extends RecyclerView.ViewHolder {
         mItemName.setText(item.getName());
         mDeleteButton.setOnClickListener(view -> {
             new AlertDialog.Builder(itemView.getContext())
-                    .setMessage("Are you sure you want to delete this item?")
-                    .setNegativeButton("Cancel", null)
-                    .setPositiveButton("OK", (dialog, which) -> {
+                    .setMessage(R.string.dialog_delete_item_message)
+                    .setNegativeButton(R.string.dialog_cancel, null)
+                    .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
                         FirebaseUtils.specialsRef().child(item.getKey()).setValue(null);
                     }).show();
         });

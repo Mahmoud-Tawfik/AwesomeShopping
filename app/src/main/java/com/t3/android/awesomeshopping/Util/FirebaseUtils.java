@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
 import com.firebase.ui.auth.AuthUI;
@@ -25,7 +26,7 @@ public class FirebaseUtils {
     public static final int RC_SIGN_IN = 123;
     private static Boolean persistenceEnabled = false;
 
-    private static List<AuthUI.IdpConfig> providers = Arrays.asList(
+    private static final List<AuthUI.IdpConfig> providers = Arrays.asList(
             new AuthUI.IdpConfig.EmailBuilder().build(),
             new AuthUI.IdpConfig.FacebookBuilder().build());
 
@@ -76,23 +77,27 @@ public class FirebaseUtils {
     }
 
     public static void updateWidget(Context context, com.t3.android.awesomeshopping.Model.List list){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        String items = "";
-        for(int i = 0; i < list.getItemsArray().size(); i++){
-            Item item = list.getItemsArray().get(i);
-            items += item.getName() + (item.getCount() > 1 ? " (" + item.getCount() + ") ": "") + (i == (list.getItemsArray().size() - 1) ? "" : ";,");
-        }
-        prefsEditor.putString(context.getString(R.string.desired_list_items), items);
-        prefsEditor.putString(context.getString(R.string.desired_list_name), list.getName());
-        prefsEditor.putString(context.getString(R.string.desired_list_key), list.getKey());
-        prefsEditor.commit();
+        // writing the pref using commit is required since it is been used directly after set.
+        // running this method in background insure that it is not blocking the main thread with pref commit
+        AsyncTask.execute(() -> {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor prefsEditor = prefs.edit();
+            String items = "";
+            for(int i = 0; i < list.getItemsArray().size(); i++){
+                Item item = list.getItemsArray().get(i);
+                items += item.getName() + (item.getCount() > 1 ? " (" + item.getCount() + ") ": "") + (i == (list.getItemsArray().size() - 1) ? "" : ";,");
+            }
+            prefsEditor.putString(context.getString(R.string.desired_list_items), items);
+            prefsEditor.putString(context.getString(R.string.desired_list_name), list.getName());
+            prefsEditor.putString(context.getString(R.string.desired_list_key), list.getKey());
+            prefsEditor.commit();
 
-        AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        int[] ids = manager.getAppWidgetIds(new ComponentName(context,LastListWidget.class));
-        Intent updateIntent = new Intent();
-        updateIntent.putExtra(LastListWidget.WIDGET_IDS_KEY, ids);
-        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        context.sendBroadcast(updateIntent);
+            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            int[] ids = manager.getAppWidgetIds(new ComponentName(context,LastListWidget.class));
+            Intent updateIntent = new Intent();
+            updateIntent.putExtra(LastListWidget.WIDGET_IDS_KEY, ids);
+            updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            context.sendBroadcast(updateIntent);
+        });
     }
 }

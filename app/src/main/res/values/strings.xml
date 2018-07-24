@@ -63,5 +63,7 @@
     <string name="item_name_hint">Item name</string>
     <string name="default_item_name">New Item</string>
     <string name="dialog_add_item_title">Add new item</string>
+    <string name="content_description_added_to_fav">Added to favorites</string>
+    <string name="dialog_delete_item_message">Are you sure you want to delete this item?</string>
 
 </resources>
