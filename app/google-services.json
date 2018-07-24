@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "333138622300",
+    "firebase_url": "https://awesomeshopping-13613.firebaseio.com",
+    "project_id": "awesomeshopping-13613",
+    "storage_bucket": "awesomeshopping-13613.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333138622300:android:b29eb3edceb50f5d",
+        "android_client_info": {
+          "package_name": "com.t3.android.awesomeshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333138622300-scmb1h1i4b68nn22f3bh5kgpt4njncdq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.t3.android.awesomeshopping",
+            "certificate_hash": "1e024ff8717bbc1b3c045823d0a7c7a6772aa20c"
+          }
+        },
+        {
+          "client_id": "333138622300-3ohtassdeqdkmkd6cmjl6vcudm7c8fmu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj37YvDuEIT3erMFPsT3kSi4HVgLCXBy0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333138622300-3ohtassdeqdkmkd6cmjl6vcudm7c8fmu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

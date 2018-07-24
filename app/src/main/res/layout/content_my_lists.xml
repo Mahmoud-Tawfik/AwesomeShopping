@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MyListsActivity"
+    tools:showIn="@layout/app_bar_my_lists">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_lists"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/ad_height"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:orientation="vertical">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/no_lists_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="@string/no_lists_hint"
+        style="@style/AppTheme.primary_text.medium"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:focusableInTouchMode="true"
+        android:contentDescription="@string/content_description_advertisement"
+        ads:adSize="@string/adSize"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

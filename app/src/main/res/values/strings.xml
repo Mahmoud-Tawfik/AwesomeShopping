@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Awesome Shopping</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_invite">Invite</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_leave">Leave</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="adSize">BANNER</string>
+
+    <string name="facebook_application_id">279772796097884</string>
+    <string name="facebook_login_protocol_scheme">fb279772796097884</string>
+
+    <string name="no_internet_connection">No internet connection, try again later</string>
+    <string name="title_activity_list_details">List Details</string>
+    <string name="title_activity_favorites">Favorites</string>
+    <string name="title_activity_specials">Specials</string>
+    <string name="title_activity_scan_barcode">Scan Barcode</string>
+
+    <string name="invite_message">Let your friend scan this QR Code directly from their app, or use the share button to send it to them</string>
+    <string name="share_prefix">Share</string>
+    <string name="share_dialog_title">Share images to..</string>
+    <string name="no_special_item_hint">If you have special items that you can\'t find in our catalog, you can add them here</string>
+    <string name="no_items_hint">You didn\'t add any items, you can add items from the Main Menu</string>
+    <string name="no_list_items_hint">No items added yet, Edit the list to add some items</string>
+    <string name="no_lists_hint">You have no list yet, add new list or scan a list QR code to subscribe to it</string>
+    <string name="appwidget_text">List Name</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="desired_list_key">desired_list_key</string>
+    <string name="widget_no_list_selected">Please select your favorite shopping list in the app to see it here</string>
+    <string name="desired_list_items">desired_list_items</string>
+    <string name="desired_list_name">desired_list_name</string>
+    <string name="content_description_app_logo">App Logo</string>
+    <string name="content_description_user_thumbnail">User thumbnail</string>
+    <string name="content_description_advertisement">Advertisement</string>
+    <string name="content_description_add_new_list">Add new list</string>
+    <string name="content_description_remove_item">Remove item</string>
+    <string name="content_description_start_edit_mode">Start edit mode</string>
+    <string name="content_description_end_edit_mode">End edit mode</string>
+    <string name="content_description_add_new_special_item">Add new special item</string>
+    <string name="content_description_share_qr_code">Share QR Code</string>
+    <string name="content_description_qr_code_image">QR Code image</string>
+    <string name="nav_item_title_my_lists">My Lists</string>
+    <string name="nav_item_title_favorites">Favorites</string>
+    <string name="nav_item_title_specials">Specials</string>
+    <string name="nav_item_title_scan_barcode">Scan barcode</string>
+    <string name="nav_item_title_logout">Logout</string>
+    <string name="dialog_delete_title">Delete list</string>
+    <string name="dialog_delete_message">Are you sure you want to Delete this list</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_delete">Delete</string>
+    <string name="dialog_leave_title">Leave list</string>
+    <string name="dialog_leave_message">Are you sure you want to leave this list</string>
+    <string name="dialog_leave">Leave</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="wrong_code_message">Wrong code, make sure to scan related code</string>
+    <string name="list_name_hint">List name</string>
+    <string name="dialog_add_list_title">Add new list</string>
+    <string name="dialog_ok">OK</string>
+    <string name="default_list_name">New List</string>
+    <string name="item_name_hint">Item name</string>
+    <string name="default_item_name">New Item</string>
+    <string name="dialog_add_item_title">Add new item</string>
+
+</resources>
